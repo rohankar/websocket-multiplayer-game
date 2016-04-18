@@ -1,0 +1,65 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>                        
+        </button>
+        <a class="navbar-brand" href="/gameroom">Game Room</a>
+    </div>
+    <div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <% if (user && user.id) { %>                  
+            <li><a href="/gameroom/create">Create new game</a></li>
+          <% } %>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <% if (user && user.id) { %>                  
+            <li class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><%= user.email %>
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><a href="/logout">Logout</a></li>
+                </ul>
+            </li>
+            
+          <% } %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>   
+
+<div class="container" style="margin-top: 75px" ng-controller="playGameController">
+    <div  class="col-sm-8 col-sm-offset-2" ng-if="!start && !winner">
+        <h1>Waiting for other players to join..</h1>
+        <h2> Game rules:</h2>
+        <ul>
+          <li>Game will start automatically when all of the invited players have joined</li>
+          <li>You have until the timer runs down to click the Click Me button as many times as possible</li>
+          <li>You will be able to see the real time score of the other players</li>
+          <li>The person with the maximum mouse clicks wins the game</li>
+          <li>After the game ends you will be redirected back to the game room</li>
+        </ul>
+    </div>
+    
+
+    <div class="col-sm-8 col-sm-offset-2" ng-if="start">
+        <h3>Stats</h3>
+        <div ng-repeat="stat in stats">
+            <p>{{stat.email}}</p>
+            <p>{{stat.clicks}}</p>
+        </div>
+
+
+        <h3>Time remaining : {{time}}</h3>
+        <a class="btn btn-primary btn-lg btn-block" ng-click="click()">Click me</a>  
+    </div>
+
+    <div class="col-sm-8 col-sm-offset-2" ng-if="winner">
+        <h2>{{winner.email}} won this game with {{winner.clicks}} clicks !!</h2>
+        <a class="btn btn-primary" href="/gameroom">Go back</a>
+    </div>
+</div>
