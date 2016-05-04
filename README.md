@@ -57,7 +57,7 @@ goto http://localhost:1337/swagger/docs
 
 - It's all about number of messages sent per second with sockets. Concurrency is key.
 - In fact if you really want to make the socket server distributed (principle of horizontal scaling) people seem to like Redis Store which will replace the default Memory Store that socket.io has and allow IPC between the workers that handle multiple socket connections. Sound complicated? Yup. I'm trying to figure this out myself. 
-- Using Nginx as a load balancer with stick load balancing seems like a good idea
+- Using Nginx as a load balancer with sticky load balancing seems like a good idea
 - Try to reverseproxy as well, maybe with HAproxy
 - If we had a leaderboard of some sort, then using memcachced to probably cache that to reduce load on the core db which should be busy doing other stuff.
    
